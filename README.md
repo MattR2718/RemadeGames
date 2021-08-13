@@ -13,4 +13,4 @@ Uses 'K' and 'M' for right hand side movement\
 ## Snake
 Created using Javascript using p5.js for drawing shapes\
 Uses arrow keys for movement\
-<img src="https://github.com/MattR2718/RemadeGames/blob/main/snake/Snake.PNG" width="500" height="500">
+<img src="https://github.com/MattR2718/RemadeGames/blob/main/snake/Snake.PNG" width="499" height="500">
