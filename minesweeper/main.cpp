@@ -5,6 +5,7 @@
 #include <time.h>
 #include <Windows.h>
 
+//Prints board in console
 void printBoard(std::vector<std::vector<char>>& board) {
     std::cout << "--------------------------\n";
     for (int y = 0; y < board[1].size(); y++) {
@@ -16,10 +17,12 @@ void printBoard(std::vector<std::vector<char>>& board) {
     std::cout << "--------------------------\n";
 }
 
+//Checks number of bombs surrounding a cell and returns either a bomb, the number of bombs or a space
 char checkBombs(std::vector<std::vector<char>>& board, int x, int y) {
     if (board[x][y] == 35) { return 35; } //If bomb
+    
+                                          //Bomb counter
     int bombs = 0;
-
     for (int j = -1; j < 2; j++) {
         for (int i = -1; i < 2; i++) {
             if ((x + i > -1) && (x + i < board.size()) && (y + j > -1) && (y + j < board[1].size())) {
@@ -32,7 +35,9 @@ char checkBombs(std::vector<std::vector<char>>& board, int x, int y) {
     return 32;
 }
 
+//Populates board with bombs, sets the board to be fully covered, sets all flag positions to false
 void fillBoard(std::vector<std::vector<char>>& board, const int &mineNum, std::vector<std::vector<bool>>& coverBoard, std::vector<std::vector<bool>>& flagBoard) {
+    //Fill with bombs
     for (int m = 0; m < mineNum; m++) {
         int x = 0;
         int y = 0;
@@ -43,6 +48,8 @@ void fillBoard(std::vector<std::vector<char>>& board, const int &mineNum, std::v
         //Ascii code for #
         board[x][y] = 35;
     }
+
+    //Fills with bomb numbers and initialises coverBoard and flagBoard
     for (int y = 0; y < board[1].size(); y++) {
         for (int x = 0; x < board.size(); x++) {
             board[x][y] = checkBombs(board, x, y);
@@ -52,12 +59,16 @@ void fillBoard(std::vector<std::vector<char>>& board, const int &mineNum, std::v
     }
 }
 
+//Checks whether an x and y position is on the board
+//Used for mouse position to prevent out of bound errors
 bool validBoardSpace(std::vector<std::vector<char>>& board, int x, int y) {
     if ((x > -1) && (x < board.size()) && (y > -1) && (y < board[1].size())) {
         return true;
     }
     return false;
 }
+
+//Recursively uncovers empty board positions when an empty cell is clicked
 void blankSpace(std::vector<std::vector<char>>& board, std::vector<std::vector<bool>>& coverBoard, int x, int y) {
     if ((validBoardSpace(board, x, y)) && (coverBoard[x][y] == 1) && (board[x][y] == ' ')) {
         coverBoard[x][y] = 0;
@@ -72,6 +83,8 @@ void blankSpace(std::vector<std::vector<char>>& board, std::vector<std::vector<b
     return;
 }
 
+//Called when player loses
+//Uncovers all bomb positions
 void lose(std::vector<std::vector<char>>& board, std::vector<std::vector<bool>>& coverBoard, std::vector<std::vector<bool>>& flagBoard, bool& lost) {
     for (int y = 0; y < board[1].size(); y++) {
         for (int x = 0; x < board.size(); x++) {
@@ -84,6 +97,10 @@ void lose(std::vector<std::vector<char>>& board, std::vector<std::vector<bool>>&
     lost = true;
 }
 
+//Called when player left clicks a cell
+//Checks whether a bomb has been hit
+//Uncovers position on board
+//If position on board is blank then calls blankSpace to uncover
 void showBoard(std::vector<std::vector<char>>& board, std::vector<std::vector<bool>>& coverBoard, std::vector<std::vector<bool>>& flagBoard, int& x, int& y, bool& lost) {
     //Bomb hit
     if (board[x][y] == 35) { 
@@ -96,6 +113,8 @@ void showBoard(std::vector<std::vector<char>>& board, std::vector<std::vector<bo
     blankSpace(board, coverBoard, x, y);
 }
 
+//Checks whether player has flagged every bomb
+//If won then uncovers whole board
 void checkWin(std::vector<std::vector<char>>& board, std::vector<std::vector<bool>>& flagBoard, std::vector<std::vector<bool>>& coverBoard, bool& won) {
     for (int y = 0; y < board[1].size(); y++) {
         for (int x = 0; x < board.size(); x++) {
@@ -121,7 +140,7 @@ int main() {
     const int cellSize = 50;
     const int windowX = 1000;
     const int windowY = 900;
-    const int mineNum = 20;
+    const int mineNum = 40;
     
     bool lost = false;
     bool won = false;
@@ -151,6 +170,7 @@ int main() {
         flagBoard[i].resize(int(windowY / cellSize));
     }
 
+    //Fills board
     fillBoard(board, mineNum, coverBoard, flagBoard);
     //printBoard(board);
 
@@ -166,23 +186,23 @@ int main() {
 
     while (window.isOpen()) {
 
-        // check all the window's events that were triggered since the last iteration of the loop
+        //Check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event))
         {
-            // "close requested" event: we close the window
+            //If "close requested" event, close the window
             if (event.type == sf::Event::Closed)
                 window.close();
         }
 
-        // clear the window with black color
+        //Clear the window with white color unless won then green
         if (won) {
             window.clear(sf::Color::Green);
         }
         else { window.clear(sf::Color::White); }
 
-        // draw everything here...
-        // window.draw(...);
+        //Draw everything here...
+        //Window.draw(...);
         //
         
         //Draw board
@@ -226,6 +246,7 @@ int main() {
             window.draw(vLine);
         }
 
+        //Left mouse click
         if ((sf::Mouse::isButtonPressed(sf::Mouse::Left)) && (!lost)){
             int x = floor(sf::Mouse::getPosition(window).x / cellSize);
             int y = floor(sf::Mouse::getPosition(window).y / cellSize);
@@ -235,6 +256,7 @@ int main() {
             }
         }
 
+        //Right mouse click
         if ((sf::Mouse::isButtonPressed(sf::Mouse::Right)) && (!lost)) {
             int x = floor(sf::Mouse::getPosition(window).x / cellSize);
             int y = floor(sf::Mouse::getPosition(window).y / cellSize);
@@ -247,7 +269,7 @@ int main() {
             }
         }
 
-        // end the current frame
+        //End the current frame
         window.display();
     }
 }
