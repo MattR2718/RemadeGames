@@ -16,7 +16,7 @@ Uses arrow keys for movement\
 <img src="https://github.com/MattR2718/RemadeGames/blob/main/snake/snake.PNG" width="500" height="500">
 
 ## Minesweeper
-Written in c++ using SFML for drawing shapes\
+Written in c++ using SFML for drawing shapes
 * Left click to reveal cell
 * Right click to add flag
 * Left Control + Right click to remove flag
