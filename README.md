@@ -7,7 +7,7 @@ Uses left and right arrow keys for movement\
 ## Pong
 Created using Javascript using p5.js for drawing shapes\
 Uses 'A' and 'Z' for left hand side player movement\
-Uses 'K' and 'M' for right hand side movementz
+Uses 'K' and 'M' for right hand side movement\
 <img src="https://github.com/MattR2718/RemadeGames/blob/main/pong/Pong.PNG" width="500" height="500">
 
 ## Snake
