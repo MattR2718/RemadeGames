@@ -21,5 +21,5 @@ Written in c++ using SFML for drawing shapes\
 * Right click to add flag
 * Left Control + Right click to remove flag\
 Game In Play | Complete Game
------------- | -------------
+:------------: | :-------------:
 <img src="https://github.com/MattR2718/RemadeGames/blob/main/minesweeper/Mine.PNG" width="400" height="400"> | <img src="https://github.com/MattR2718/RemadeGames/blob/main/minesweeper/MineComplete.PNG" width="400" height="400">
