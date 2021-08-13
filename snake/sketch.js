@@ -9,7 +9,7 @@ let highscore = 0;
 function grid() {
   background(0);
   noFill();
-  strokeWeight(2);
+  strokeWeight(1);
   stroke(255);
   for (var x = 0; x < width; x += round(width / size)) {
     for (var y = 0; y < height; y += round(height / size)) {
