@@ -20,5 +20,5 @@ Written in c++ using SFML for drawing shapes
 * Left click to reveal cell
 * Right click to add flag
 * Left Control + Right click to remove flag
-<img src="https://github.com/MattR2718/RemadeGames/blob/main/minesweeper/Mine.PNG" width="300" height="300">
-<img src="https://github.com/MattR2718/RemadeGames/blob/main/minesweeper/MineComplete.PNG" width="300" height="300">
+<img src="https://github.com/MattR2718/RemadeGames/blob/main/minesweeper/Mine.PNG" width="400" height="400">
+<img src="https://github.com/MattR2718/RemadeGames/blob/main/minesweeper/MineComplete.PNG" width="400" height="400">
